@@ -5,7 +5,9 @@ import Cookies from 'universal-cookie';
 // import Info from '../Info/Info';
 import Login from '../Login/Login';
 import Homepage from '../Homepage/Homepage';
-// import NavigationBar from '../NavigationBar/NavigationBar';
+import NavigationBar from '../NavigationBar/NavigationBar';
+import Inventory from '../Inventory/Inventory';
+import Product from '../Product/Product';
 // import Title from '../Title/Title';
 // import TransactionsHistory from '../TransactionsHistory/TransactionsHistory';
 // import Transfer from '../Transfer/Transfer';
@@ -16,10 +18,12 @@ function Router() {
     // if (!cookie.get("userBankPro")) {
         return (
             <main>
-                {/*<NavigationBar></NavigationBar>*/}
+                <NavigationBar></NavigationBar>
                 <Switch>
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/home' component={Homepage} />
+                    <Route exact path='/inventory' component={Inventory} />
+                    <Route exact path='/product' component={Product} />
                     {/*<Route exact path='/*' component={Title} />*/}
                 </Switch>
                 {/*<BottomBar></BottomBar>*/}

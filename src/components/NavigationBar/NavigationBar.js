@@ -55,9 +55,17 @@ class NavigationBar extends Component {
                     )}
 
                     {!(this.props.location.pathname == "/home") && (
-                    <Link to='/balance' id = "a-navbar">
+                        <Link to='/product' id = "a-navbar">
+                            <div className="navbar-button" >
+                                <font color="white">Product</font>
+                            </div>
+                        </Link>
+                    )}
+
+                    {!(this.props.location.pathname == "/home") && (
+                    <Link to='/restock' id = "a-navbar">
                         <div className="navbar-button">
-                            <font color="white">Balance</font>
+                            <font color="white">Restock</font>
                         </div>
                     </Link>
                     )}

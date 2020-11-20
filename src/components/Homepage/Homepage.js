@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom';
-import NavigationBar from '../NavigationBar/NavigationBar';
 import inventory from '../../assets/boxes.svg'
 import order from '../../assets/order.svg'
 import restock from '../../assets/restock.svg'
-import balance from '../../assets/balance.svg'
+import chocolate from '../../assets/chocolate.svg'
 import './Homepage.css';
 
 class Homepage extends Component {
@@ -94,7 +93,6 @@ class Homepage extends Component {
     render() {
         return (
             <React.Fragment>
-                <NavigationBar/>
                 <div className="wrapper-greet">
 
                     {/*<button className={*/}
@@ -121,19 +119,18 @@ class Homepage extends Component {
                         </div>
 
                         <div className="card">
+                            <img src={chocolate}/>
+                            <Link to="/balance">
+                                <font color = "black">PRODUCT</font>
+                            </Link>
+                        </div>
+
+                        <div className="card">
                             <Link to="/restock">
                                 <img src={restock}/>
                                 <font color = "black">RESTOCK</font>
                             </Link>
 
-                        </div>
-
-
-                        <div className="card">
-                                <img src={balance}/>
-                            <Link to="/balance">
-                                <font color = "black">BALANCE</font>
-                            </Link>
                         </div>
 
                     </div>
