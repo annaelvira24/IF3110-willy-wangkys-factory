@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom';
 import NavigationBar from '../NavigationBar/NavigationBar';
-import test from '../../assets/fried.png'
+import inventory from '../../assets/boxes.svg'
+import order from '../../assets/order.svg'
+import restock from '../../assets/restock.svg'
+import balance from '../../assets/balance.svg'
 import './Homepage.css';
 
 class Homepage extends Component {
@@ -103,37 +106,33 @@ class Homepage extends Component {
                     </div>
 
                     <div class = "cardContainer">
-                            <div className="card">
-                                <img src={test}/>
-                                <Link to="/">
-                                    <font>ORDER</font>
-                                </Link>
-
-                            </div>
-
-
                         <div className="card">
-
-                                <img src={test}/>
-                                aaaaa
-
+                            <img src={order}/>
+                            <Link to="/">
+                                <font color = "black">ORDER</font>
+                            </Link>
                         </div>
 
-
+                        <div className="card">
+                            <img src={inventory}/>
+                            <Link to="/inventory">
+                                <font color = "black">INVENTORY</font>
+                            </Link>
+                        </div>
 
                         <div className="card">
-                            <Link to="/">
-                                <img src=""/>
-                                aaaaa
+                            <Link to="/restock">
+                                <img src={restock}/>
+                                <font color = "black">RESTOCK</font>
                             </Link>
 
                         </div>
 
 
                         <div className="card">
-                            <Link to="/">
-                                <img src=""/>
-                                aaaaa
+                                <img src={balance}/>
+                            <Link to="/balance">
+                                <font color = "black">BALANCE</font>
                             </Link>
                         </div>
 
