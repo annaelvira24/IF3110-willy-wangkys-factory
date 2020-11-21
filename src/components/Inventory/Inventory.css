@@ -1,0 +1,67 @@
+label {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    color: Black;
+    padding-bottom: 50px;
+}
+
+
+.wrapper-inventory {
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 140px;
+    z-index: 0;
+}
+
+.inventory {
+    border-radius: 5px;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1), 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+    padding-top: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 30px 100px 100px 100px;
+    width: inherit;
+    height: auto;
+    overflow: auto;
+}
+
+.inventory-header {
+    border-bottom: 1.5px solid saddlebrown;
+    color: saddlebrown;
+    display: grid;
+    font-size: 1.2rem;
+    font-weight: bold;
+    grid-template-columns: 15% 50% 35%;
+    padding: 10px 0px 10px 0px;
+}
+
+.inventory-content {
+    border-top: 1.5px solid #dbdbdb;
+    color: grey;
+    display: grid;
+    grid-template-rows: repeat(auto-fill, auto);
+    padding-bottom: 10px;
+    height: 100%;
+}
+
+.inventory-content-item {
+    border-top: 1.5px solid #dbdbdb;
+    color: #a6a6a6;
+    display: grid;
+    font-size: 0.9rem;
+    font-weight: bold;
+    grid-template-columns: 15% 50% 35%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.text-content-debit {
+    color: lightcoral;
+}
+
+.text-content-kredit {
+    color: limegreen;
+}

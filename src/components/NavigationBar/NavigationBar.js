@@ -39,7 +39,7 @@ class NavigationBar extends Component {
 
 
                     {!(this.props.location.pathname == "/home") && (
-                        <Link to='/order'>
+                        <Link to='/order' id = "a-navbar">
                             <div className="navbar-button">
                                 <font color="white">Order</font>
                             </div>
@@ -47,23 +47,31 @@ class NavigationBar extends Component {
                     )}
 
                     {!(this.props.location.pathname == "/home") && (
-                        <Link to='/inventory'>
-                            <div className="navbar-button">
+                        <Link to='/inventory' id = "a-navbar">
+                            <div className="navbar-button" >
                                 <font color="white">Inventory</font>
                             </div>
                         </Link>
                     )}
 
                     {!(this.props.location.pathname == "/home") && (
-                    <Link to='/balance' id = "a-navbar">
+                        <Link to='/product' id = "a-navbar">
+                            <div className="navbar-button" >
+                                <font color="white">Product</font>
+                            </div>
+                        </Link>
+                    )}
+
+                    {!(this.props.location.pathname == "/home") && (
+                    <Link to='/restock' id = "a-navbar">
                         <div className="navbar-button">
-                            <font color="white">Balance</font>
+                            <font color="white">Restock</font>
                         </div>
                     </Link>
                     )}
 
-                    <Link to='/login'>
-                        <div className="navbar-button" id="button-logout">
+                    <Link to='/login' id = "a-navbar">
+                        <div className="navbar-button" id = "button-logout">
                             <font color="white" onClick={this.handleLogout}>Logout</font>
                         </div>
                     </Link>
