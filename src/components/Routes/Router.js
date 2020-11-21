@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie';
 // import Info from '../Info/Info';
 import Login from '../Login/Login';
 import Homepage from '../Homepage/Homepage';
+import SupplyList from '../SupplyList/SupplyList';
 // import NavigationBar from '../NavigationBar/NavigationBar';
 // import Title from '../Title/Title';
 // import TransactionsHistory from '../TransactionsHistory/TransactionsHistory';
@@ -18,8 +19,9 @@ function Router() {
             <main>
                 {/*<NavigationBar></NavigationBar>*/}
                 <Switch>
+                    <Route exact path='/' component={Homepage} />
                     <Route exact path='/login' component={Login} />
-                    <Route exact path='/home' component={Homepage} />
+                    <Route exact path='/daftarbahan' component={SupplyList}/>
                     {/*<Route exact path='/*' component={Title} />*/}
                 </Switch>
                 {/*<BottomBar></BottomBar>*/}
