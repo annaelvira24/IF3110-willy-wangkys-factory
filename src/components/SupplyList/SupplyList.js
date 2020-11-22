@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import SupplyComponent from './SupplyComponent';
-import './SupplyComponent.css';
+import {Link} from 'react-router-dom';
+import './SupplyList.css';
 import axios from "axios";
 
 class SupplyList extends Component {
@@ -8,8 +8,8 @@ class SupplyList extends Component {
         supplies: []
     }
 
-    componentDidMount() {
-        axios.get('http://localhost:5000/daftarbahan')
+    async componentDidMount() {
+        await axios.get('http://localhost:5000/supply')
         .then(res => {
             const supplies = res.data;
             this.setState({supplies});
@@ -36,7 +36,15 @@ class SupplyList extends Component {
                         </div>
 
                         <div className="supply-content">
-                            {this.state.supplies.map(supp => <SupplyComponent idbahan = {supp.id_bahan} namabahan={supp.nama_bahan} harga={supp.harga_satuan}/>)}
+                            {this.state.supplies.map(supp => {return (
+                                <div className="supply-content-item">
+                                    <h1>{supp.id_bahan}</h1>
+                                    <h1>{supp.nama_bahan}</h1>
+                                    <h1>{supp.harga_satuan}</h1>
+                                    <Link to={`/supply/${supp.id_bahan}`}>Buy</Link>
+                                </div>
+                            );
+                            })}
                         </div>
                     </div>
                 </div>

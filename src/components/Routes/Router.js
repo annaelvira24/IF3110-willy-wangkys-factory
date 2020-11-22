@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 import Login from '../Login/Login';
 import Homepage from '../Homepage/Homepage';
 import SupplyList from '../SupplyList/SupplyList';
+import BuySupply from '../SupplyList/BuySupply';
 // import NavigationBar from '../NavigationBar/NavigationBar';
 import NavigationBar from '../NavigationBar/NavigationBar';
 import Inventory from '../Inventory/Inventory';
@@ -24,7 +25,8 @@ function Router() {
                 <Switch>
                     <Route exact path='/' component={Homepage} />
                     <Route exact path='/login' component={Login} />
-                    <Route exact path='/daftarbahan' component={SupplyList}/>
+                    <Route exact path='/supply' component={SupplyList}/>
+                    <Route path='/supply/:id' component={BuySupply}/>
                     <Route exact path='/home' component={Homepage} />
                     <Route exact path='/inventory' component={Inventory} />
                     <Route exact path='/product' component={Product} />
