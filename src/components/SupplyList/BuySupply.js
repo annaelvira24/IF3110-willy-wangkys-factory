@@ -1,43 +1,47 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import axios from "axios";
+import './BuySupply.css';
 
 class BuySupply extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            supp_name: '',
-            price: 0,
-            amount: 0
+            supplies: [],
+            inputList: [{id: 1, amount: 0}]
         };
-        this.handleClickAdd = this.handleClickAdd.bind(this);
-        this.handleClickRemove = this.handleClickRemove.bind(this);
-        this.handleClickBuy = this.handleClickBuy.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleAddClick = this.handleAddClick.bind(this);
+        this.handleBuyClick = this.handleBuyClick.bind(this);
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/supply/' + this.props.match.params.id)
+        axios.get('http://localhost:5000/supply')
         .then(res => {
-            let supplyName = res.data[0].nama_bahan;
-            let p = res.data[0].harga_satuan;
-            this.setState({supp_name: supplyName, price: p});
-        })
+            const supplies = res.data;
+            this.setState({supplies});
+        });
     }
 
-    handleClickAdd() {
-        this.setState({amount: this.state.amount + 1});
+    handleChange(e,i) {
+        const {name, value} = e.target;
+        const list = [...this.state.inputList];
+        list[i][name] = parseInt(value);
+        this.setState({list});
     }
 
-    handleClickRemove() {
-        this.state.amount > 0 ? 
-            this.setState({amount: this.state.amount - 1}) :
-            this.setState({amount: 0});
+    handleAddClick(e) {
+        e.preventDefault();
+        const oldState = this.state.inputList;
+        const newItem = {id: 1, amount:0};
+        oldState.push(newItem);
+        this.setState([...this.state.inputList, ...oldState]);
     }
 
-    handleClickBuy() {
+    handleBuyClick() {
         const BuySupp = {
             "balance": 200000,
-            "supp_id": this.props.match.params.id,
-            "amount": this.state.amount
+            "items": this.state.inputList
         }
 
         axios.post('http://localhost:5000/supply/buy', {BuySupp})
@@ -47,17 +51,29 @@ class BuySupply extends Component {
 
     render() {
         return (
-            <div>
-                <h1>{this.state.supp_name}</h1>
-                <h1>{this.state.price}</h1>
-                <button onClick={this.handleClickAdd}>Add</button>
-                <h2>{this.state.amount}</h2>
-                <button onClick={this.handleClickRemove}>Remove</button>
-                <button onClick={this.handleClickBuy}>Buy</button>
-            </div>
+            <form>
+                <h1>Buy Supplies</h1>
+                {this.state.inputList.map((item, i) => {
+                    return(
+                        <div className="form-buy" onChange={e => this.handleChange(e,i)}>
+                            <select name= "id" value={item.value}>
+                                {this.state.supplies.map(supp => {return (
+                                    <option value={supp.id_bahan}>
+                                        {supp.nama_bahan}
+                                    </option>
+                                );})}
+                            </select>
+                            <input type="text" className="amount-supp" name="amount" placeholder="Quantity"/>
+                            <button className="btn-add" onClick={(e) => this.handleAddClick(e)}>Add</button>
+                        </div>
+                    )
+                })}
+                <Link to={'/home'} className="btn-buy" onClick={this.handleBuyClick()}>
+                    Buy All
+                </Link>
+            </form>
         )
     }
-
 }
 
 export default BuySupply;

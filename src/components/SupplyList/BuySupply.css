@@ -1,0 +1,53 @@
+h1 {
+    margin: 70px 10px 30px 10px;
+    text-align: center;
+}
+
+select {
+    display: inline;
+    margin: 0px 20px;
+    background-color: transparent;
+    border: 1px solid orange;
+    border-radius: 5px;
+    height: 30px;
+    appearance: none;
+}
+
+.amount-supp {
+    display: inline !important;
+    height: 30px;
+    width: 150px !important;
+    margin: 0px 20px;
+    border: 1px solid orange !important;
+}
+
+.form-buy {
+    display: block;
+    text-align: center;
+    margin: 2px; 
+}
+
+.btn-add {
+    margin: 20px;
+    padding: 5px 50px;
+    border: 2px solid orange;
+    background-color: white;
+}
+
+.btn-add:hover {
+    opacity: 0.8;
+}
+
+.btn-buy:hover {
+    opacity: 0.8;
+}
+
+.btn-buy {
+    position: absolute;
+    right: 0;
+    margin: 10px 50px;
+    padding: 10px 50px;
+    background-color: darkorange;
+    color: white;
+    /* border: 3px solid saddlebrown; */
+}

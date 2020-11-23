@@ -26,7 +26,7 @@ function Router() {
                     <Route exact path='/' component={Homepage} />
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/supply' component={SupplyList}/>
-                    <Route path='/supply/:id' component={BuySupply}/>
+                    <Route exact path='/supply/buy' component={BuySupply}/>
                     <Route exact path='/home' component={Homepage} />
                     <Route exact path='/inventory' component={Inventory} />
                     <Route exact path='/product' component={Product} />

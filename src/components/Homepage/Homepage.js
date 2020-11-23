@@ -126,9 +126,9 @@ class Homepage extends Component {
                         </div>
 
                         <div className="card">
-                            <Link to="/restock">
+                            <Link to="/supply">
                                 <img src={restock}/>
-                                <font color = "black">RESTOCK</font>
+                                <font color = "black">BUY SUPPLIES</font>
                             </Link>
 
                         </div>
