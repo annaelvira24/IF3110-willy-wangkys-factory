@@ -1,5 +1,5 @@
 h1 {
-    margin: 70px 10px 30px 10px;
+    margin: 150px 10px 30px 10px;
     text-align: center;
 }
 
@@ -45,9 +45,9 @@ select {
 .btn-buy {
     position: absolute;
     right: 0;
-    margin: 10px 50px;
+    margin: 10px 100px;
     padding: 10px 50px;
+    border-radius: 10px;
     background-color: darkorange;
     color: white;
-    /* border: 3px solid saddlebrown; */
 }

@@ -49,7 +49,7 @@ class SupplyList extends Component {
                             })}
                         </div>
                     </div>
-                    <Link to={`/supply/buy`} style={{textDecoration: 'none', margin: "30px", padding: "10px 80px", backgroundColor: "darkorange", color: "white"}}>
+                    <Link to={`/supply/buy`} style={{borderRadius: "10px", textDecoration: 'none', margin: "30px", padding: "10px 80px", backgroundColor: "darkorange", color: "white"}}>
                         Buy Supplies
                     </Link>
                 </div>

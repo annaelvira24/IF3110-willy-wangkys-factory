@@ -95,32 +95,28 @@ class Homepage extends Component {
             <React.Fragment>
                 <div className="wrapper-greet">
 
-                    {/*<button className={*/}
-                    {/*    this.state.cookie ? "virtual-button" : "virtual-button-hidden"*/}
-                    {/*} onClick={ this.getVirtualAccount }>Virtual Account</button>*/}
-
                     <div className="text-title">
                         Welcome to Willy Wangky's Factory!
                     </div>
 
                     <div class = "cardContainer">
                         <div className="card">
-                            <img src={order}/>
-                            <Link to="/">
+                            <Link to="/order">
+                                <img src={order}/>
                                 <font color = "black">ORDER</font>
                             </Link>
                         </div>
 
                         <div className="card">
-                            <img src={inventory}/>
                             <Link to="/inventory">
+                                <img src={inventory}/>
                                 <font color = "black">INVENTORY</font>
                             </Link>
                         </div>
 
                         <div className="card">
-                            <img src={chocolate}/>
-                            <Link to="/balance">
+                            <Link to="/product">
+                                <img src={chocolate}/>
                                 <font color = "black">PRODUCT</font>
                             </Link>
                         </div>
