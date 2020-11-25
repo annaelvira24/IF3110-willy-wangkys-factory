@@ -63,24 +63,35 @@ class Inventory extends Component {
         request(options, callback);
     }
 
+    isExpired(expiryDate){
+        let today = new Date();
+        let expiry = new Date(expiryDate)
+        let status = "";
+        if (expiry < today.getDate()){
+            status = "expired"
+        }
+        return status;
+
+    }
+
     renderInventoryContent(e, i) {
         let inventoryContentItem = document.createElement('div');
         inventoryContentItem.className = 'inventory-content-item';
 
         let ingredientId = document.createElement('div');
-        // ingredientId.className = 'text-content-' + e["transactionType"][i];
+        ingredientId.className = 'text-content-' + this.isExpired(e["expiryDate"][i]);
         ingredientId.innerHTML = e["ingredientId"][i];
 
         let ingredientName = document.createElement('div');
-        // type.className = 'text-content-' + e["transactionType"][i];
+        ingredientName.className = 'text-content-' + this.isExpired(e["expiryDate"][i]);
         ingredientName.innerHTML = e["ingredientName"][i];
 
         let stock = document.createElement('div');
-        // amount.className = 'text-content-' + e["transactionType"][i];
+        stock.className = 'text-content-' + this.isExpired(e["expiryDate"][i]);
         stock.innerHTML = e["stock"][i];
 
         let expiryDate = document.createElement('div');
-        // account.className = 'text-content-' + e["transactionType"][i];
+        expiryDate.className = 'text-content-' + this.isExpired(e["expiryDate"][i]);
         expiryDate.innerHTML = e["expiryDate"][i];
 
         inventoryContentItem.appendChild(ingredientId);

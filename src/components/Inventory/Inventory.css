@@ -49,7 +49,7 @@ label {
 
 .inventory-content-item {
     border-top: 1.5px solid #dbdbdb;
-    color: #a6a6a6;
+    color: dimgrey;
     display: grid;
     font-size: 0.9rem;
     font-weight: bold;
@@ -58,10 +58,6 @@ label {
     padding-bottom: 10px;
 }
 
-.text-content-debit {
+.text-content-expired {
     color: lightcoral;
-}
-
-.text-content-kredit {
-    color: limegreen;
 }

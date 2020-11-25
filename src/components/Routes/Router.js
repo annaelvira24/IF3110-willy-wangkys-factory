@@ -24,6 +24,7 @@ function Router() {
                 <NavigationBar></NavigationBar>
                 <Switch>
                     <Route exact path='/' component={Homepage} />
+                    <Route exact path='/login' component={Homepage} />
                     <Route exact path='/supply' component={SupplyList}/>
                     <Route exact path='/supply/buy' component={BuySupply}/>
                     <Route exact path='/home' component={Homepage} />

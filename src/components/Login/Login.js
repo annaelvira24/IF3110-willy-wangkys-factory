@@ -21,7 +21,6 @@ class Login extends Component {
 
         let username = e.target.elements.username.value;
         let password = e.target.elements.password.value;
-        console.log(username);
 
         let xml =
             `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://services/">

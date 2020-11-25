@@ -33,7 +33,7 @@ label {
     display: grid;
     font-size: 1.2rem;
     font-weight: bold;
-    grid-template-columns: 10% 30% 20% 40%;
+    grid-template-columns: 10% 40% 20% 30%;
     padding: 10px 0px 10px 0px;
 }
 
@@ -52,7 +52,7 @@ label {
     display: grid;
     font-size: 0.9rem;
     font-weight: bold;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 10% 40% 20% 30%;
     padding-top: 10px;
     padding-bottom: 10px;
 }

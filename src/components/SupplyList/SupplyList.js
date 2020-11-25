@@ -21,7 +21,10 @@ class SupplyList extends Component {
 
     render() {
         return (
-        <div className="wrapper-supply">
+            <div className="wrapper-supply">
+                    {/*<div>*/}
+                    {/*    <label>Balance</label>*/}
+                    {/*</div>*/}
                     <div>
                         <label>Buy Supply</label>
                     </div>
