@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Login from '../Login/Login';
 import Homepage from '../Homepage/Homepage';
@@ -8,9 +8,6 @@ import BuySupply from '../SupplyList/BuySupply';
 import NavigationBar from '../NavigationBar/NavigationBar';
 import Inventory from '../Inventory/Inventory';
 import Product from '../Product/Product';
-// import Title from '../Title/Title';
-// import TransactionsHistory from '../TransactionsHistory/TransactionsHistory';
-// import Transfer from '../Transfer/Transfer';
 
 function Router() {
     const cookie = new Cookies();

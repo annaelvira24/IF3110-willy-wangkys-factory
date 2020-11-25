@@ -10,8 +10,6 @@ import './Homepage.css';
 class Homepage extends Component {
     state = {
         cookie: undefined,
-        accountNumber: undefined,
-        customerName: undefined
     }
 
     constructor() {

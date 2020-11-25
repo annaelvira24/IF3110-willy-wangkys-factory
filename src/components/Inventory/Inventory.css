@@ -34,7 +34,7 @@ label {
     display: grid;
     font-size: 1.2rem;
     font-weight: bold;
-    grid-template-columns: 15% 50% 35%;
+    grid-template-columns: 15% 30% 25% 30%;
     padding: 10px 0px 10px 0px;
 }
 
@@ -53,7 +53,7 @@ label {
     display: grid;
     font-size: 0.9rem;
     font-weight: bold;
-    grid-template-columns: 15% 50% 35%;
+    grid-template-columns: 15% 30% 25% 30%;
     padding-top: 10px;
     padding-bottom: 10px;
 }

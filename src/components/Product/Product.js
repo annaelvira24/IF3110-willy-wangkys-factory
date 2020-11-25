@@ -71,19 +71,15 @@ class Product extends Component {
     //
     //     let time = document.createElement('div');
     //     time.className = 'text-content-' + e["transactionType"][i];
-    //     time.innerHTML = e["transactionTime"][i].slice(0, -2);
+    //     time.innerHTML = e["id_product"][i];
     //
     //     let type = document.createElement('div');
     //     type.className = 'text-content-' + e["transactionType"][i];
-    //     type.innerHTML = e["transactionType"][i];
+    //     type.innerHTML = e["name"][i];
     //
     //     let amount = document.createElement('div');
     //     amount.className = 'text-content-' + e["transactionType"][i];
-    //     amount.innerHTML = "Rp. " + e["amount"][i] + ",-";
-    //
-    //     let account = document.createElement('div');
-    //     account.className = 'text-content-' + e["transactionType"][i];
-    //     account.innerHTML = e["targetAccount"][i];
+    //     amount.innerHTML = "Rp. " + e["stock"][i] + ",-";
     //
     //     historyContentItem.appendChild(time);
     //     historyContentItem.appendChild(type);
