@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import Balance from '../Balance/Balance'
 import './SupplyList.css';
 import axios from "axios";
 
@@ -21,10 +22,11 @@ class SupplyList extends Component {
 
     render() {
         return (
-            <div className="wrapper-supply">
-                    {/*<div>*/}
-                    {/*    <label>Balance</label>*/}
-                    {/*</div>*/}
+            <React.Fragment>
+
+                <Balance/>
+                <div className="wrapper-supply">
+
                     <div>
                         <label>Buy Supply</label>
                     </div>
@@ -56,6 +58,9 @@ class SupplyList extends Component {
                         Buy Supplies
                     </Link>
                 </div>
+
+            </React.Fragment>
+
         );
     }
 }

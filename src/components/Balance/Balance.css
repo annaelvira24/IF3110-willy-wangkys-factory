@@ -1,0 +1,44 @@
+.wrapper-info {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    overflow: visible;
+}
+
+.wrapper-info-balance-info {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border: 1px inset lightgray;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+    padding: 5.5% 7.5% 0.5%;
+    height: 70px;
+    white-space: nowrap;
+}
+
+
+.wrapper-main-info {
+    width: 100%;
+    display: inline-flex;
+    position: absolute;
+    right: 20px;
+    margin-top: 20px;
+}
+
+
+.text-balance {
+    font-family: Lato, Helvetica, sans-serif;
+    font-size: 150%;
+    font-weight: bold;
+    margin-left: 140px;
+}
+
+#balance-info {
+    color: orangered;
+}

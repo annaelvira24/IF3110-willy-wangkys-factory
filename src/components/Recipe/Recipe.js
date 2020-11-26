@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom';
-import './Product.css';
+import './Recipe.css';
 
-class Product extends Component {
+class Recipe extends Component {
     state = {
         cookie: undefined,
     }
@@ -18,16 +18,23 @@ class Product extends Component {
         let request = require('request');
         let xml2js = require('xml2js');
 
+        let segment_str = this.props.location.pathname;
+        let segment_array = segment_str.split( '/' );
+        let id = segment_array.pop();
+        console.log(id);
+
         let xml =
             `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://services/">
     	    	<soapenv:Header/>
     			<soapenv:Body>
-    				<ser:GetProduct/>
+    				<ser:GetRecipe>
+    				    <productId>` + id + `</productId>
+    				</ser:GetRecipe>
     			</soapenv:Body>
     		</soapenv:Envelope>`;
 
         let options = {
-            url: 'http://localhost:8080/web_service_factory/services/GetProduct?wsdl',
+            url: 'http://localhost:8080/web_service_factory/services/GetRecipe?wsdl',
             method: 'POST',
             body: xml,
             headers: {
@@ -50,11 +57,12 @@ class Product extends Component {
                     let result = JSON.parse(json)["return"];
                     console.log("result : ", result);
 
-                    if (result["status"][0] === "200") {
-                        let productContent = document.getElementsByClassName('product-content')[0];
+                    if (result["status"][0] === "200"){
+                        this.setState({ productName: result["productName"] })
+                        let recipeContent = document.getElementsByClassName('recipe-content')[0];
 
-                        for (let i = 0; i < result["productId"].length; i++) {
-                            productContent.appendChild(this.renderProductContent(result, i));
+                        for (let i = 0; i < result["ingredientName"].length; i++) {
+                            recipeContent.appendChild(this.renderRecipeContent(result, i));
                         }
                     }
                 });
@@ -64,58 +72,43 @@ class Product extends Component {
         request(options, callback);
     }
 
-    renderProductContent(e, i) {
-        let productContentItem = document.createElement('div');
-        productContentItem.className = 'product-content-item';
+    renderRecipeContent(e, i) {
+        let recipeContentItem = document.createElement('div');
+        recipeContentItem.className = 'recipe-content-item';
 
-        let productId = document.createElement('div');
-        productId.innerHTML = e["productId"][i];
+        let ingredient = document.createElement('div');
+        ingredient.innerHTML = e["ingredientName"][i];
 
-        let productName = document.createElement('div');
-        productName.innerHTML = e["productName"][i];
+        let amount = document.createElement('div');
+        amount.innerHTML = e["amountNeed"][i];
 
-        let stock = document.createElement('div');
-        stock.innerHTML = e["stock"][i];
+        recipeContentItem.appendChild(ingredient);
+        recipeContentItem.appendChild(amount);
 
-        let recipe = document.createElement('div');
-        let recipeButton = document.createElement('a');
-        recipeButton.href = "/recipe/" + e["productId"][i];
-        recipeButton.innerText = "View Recipe";
-        recipe.appendChild(recipeButton)
-
-        productContentItem.appendChild(productId);
-        productContentItem.appendChild(productName);
-        productContentItem.appendChild(stock);
-        productContentItem.appendChild(recipe);
-
-        return productContentItem;
+        return recipeContentItem;
     }
 
     render() {
         return (
             <React.Fragment>
 
-                <div className="wrapper-product">
+                <div className="wrapper-recipe">
                     <div>
-                        <label>Product</label>
+                        <label>Recipe</label>
+                        <label>{this.state.productName}</label>
+
                     </div>
-                    <div className="product">
-                        <div className="product-header">
+                    <div className="recipe">
+                        <div className="recipe-header">
                             <div className="text-header">
-                                ID
+                                Ingredient Name
                             </div>
                             <div className="text-header">
-                                Product Name
-                            </div>
-                            <div className="text-header">
-                                Stock
-                            </div>
-                            <div className="text-header">
-                                Recipe
+                                Amount Needed
                             </div>
                         </div>
 
-                        <div className="product-content">
+                        <div className="recipe-content">
                         </div>
                     </div>
                 </div>
@@ -124,4 +117,4 @@ class Product extends Component {
     }
 };
 
-export default Product;
+export default Recipe;

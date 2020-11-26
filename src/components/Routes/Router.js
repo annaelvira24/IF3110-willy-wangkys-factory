@@ -8,6 +8,7 @@ import BuySupply from '../SupplyList/BuySupply';
 import NavigationBar from '../NavigationBar/NavigationBar';
 import Inventory from '../Inventory/Inventory';
 import Product from '../Product/Product';
+import Recipe from '../Recipe/Recipe';
 
 function Router() {
     const cookie = new Cookies();
@@ -30,6 +31,8 @@ function Router() {
                     <Route exact path='/home' component={Homepage} />
                     <Route exact path='/inventory' component={Inventory} />
                     <Route exact path='/product' component={Product} />
+                    <Route exact path='/recipe/*' component={Recipe} />
+
                 </Switch>
             </main>
         );
