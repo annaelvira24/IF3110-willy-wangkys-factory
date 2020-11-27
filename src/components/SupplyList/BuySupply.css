@@ -51,3 +51,11 @@ select {
     background-color: darkorange;
     color: white;
 }
+
+#review-list {
+    display: none;
+}
+
+#btn-confirm {
+    display: none;
+}

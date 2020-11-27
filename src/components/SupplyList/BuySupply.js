@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import axios from "axios";
 import './BuySupply.css';
 
@@ -8,26 +7,48 @@ class BuySupply extends Component {
         super();
         this.state = {
             supplies: [],
-            inputList: [{id: 1, amount: 0}]
+            inputList: [{id: 1, amount: 0}],
+            status: "",
+            money: 0,
+            reviewList: [],
+            balance: 0
         };
-        this.handleChange = this.handleChange.bind(this);
         this.handleAddClick = this.handleAddClick.bind(this);
         this.handleBuyClick = this.handleBuyClick.bind(this);
+        this.handleConfirmClick = this.handleConfirmClick.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.handleAmountChange = this.handleAmountChange.bind(this);
+        this.showReview = this.showReview.bind(this);
+        this.isEqual = this.isEqual.bind(this);
+        this.getBalance = this.getBalance.bind(this);
     }
 
     componentDidMount() {
         axios.get('http://localhost:5000/supply')
         .then(res => {
             const supplies = res.data;
-            this.setState({supplies});
+            this.setState({supplies: supplies});
         });
+        this.getBalance();
     }
 
-    handleChange(e,i) {
-        const {name, value} = e.target;
-        const list = [...this.state.inputList];
-        list[i][name] = parseInt(value);
-        this.setState({list});
+    handleSelectChange(e,i) {
+        var v = e.target.value;
+        console.log(v);
+        const newInputList = [...this.state.inputList];
+        newInputList[i].id = parseInt(v);
+        this.setState({newInputList});
+        console.log("select change");
+        console.log(this.state.inputList);
+    };
+
+    handleAmountChange(e,i) {
+        var v = e.target.value;
+        const newInputList = [...this.state.inputList];
+        newInputList[i].amount = parseInt(v);
+        this.setState({newInputList});
+        console.log("amount change")
+        console.log(this.state.inputList);
     }
 
     handleAddClick(e) {
@@ -38,15 +59,125 @@ class BuySupply extends Component {
         this.setState([...this.state.inputList, ...oldState]);
     }
 
-    handleBuyClick() {
+    handleBuyClick(e) {
+        e.preventDefault();
+        console.log(this.state.balance);
         const BuySupp = {
-            "balance": 200000,
+            "balance": this.state.balance,
             "items": this.state.inputList
         }
 
         axios.post('http://localhost:5000/supply/buy', {BuySupp})
-        .then(res => {console.log(res)})
+        .then(res => {
+            const received = res.data;
+            this.setState({status: received.status, money: received.money});
+            if(res.data.status === 'success') {
+                this.isEqual(this.state.inputList, this.state.supplies);
+                this.showReview();
+            }
+        })
         .catch(error => {console.log(error)});
+    }
+
+    handleConfirmClick = async e => {
+        e.preventDefault();
+        let request = require('request');
+        let xml2js = require('xml2js');
+
+        let items = this.state.inputList;
+        let money = this.state.money;
+
+        let xml = 
+            `<soapenv: Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://services/">
+                <soapenv:Header/>
+                <soapenv:Body>
+                    <ser:AddSupply>
+                        <items>` + items + `</items>
+                        <money>` + money + `</money>
+                    <ser:AddSupply>
+                </soapenv:Body>
+            </soapenv:Envelope>`;
+
+        let options = {
+            url: 'http://localhost:8080/web_service_factory/services/AddSupply?wsdl',
+            method: 'POST',
+            body: xml,
+            headers: {
+                'Content-Type': 'text/xml;charset=utf-8',
+            }
+        };
+
+        let callback = (error, response, body) => {
+            console.log(error);
+        };
+
+        request(options, callback);
+    }
+
+    getBalance() {
+        let request = require('request');
+        let xml2js = require('xml2js');
+
+        let xml =
+            `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://services/">
+		    	<soapenv:Header/>
+				<soapenv:Body>
+					<ser:GetBalance/>
+				</soapenv:Body>
+			</soapenv:Envelope>`;
+
+        let options = {
+            url: 'http://localhost:8080/web_service_factory/services/GetBalance?wsdl',
+            method: 'POST',
+            body: xml,
+            headers: {
+                'Content-Type': 'text/xml;charset=utf-8',
+            }
+        };
+
+        let callback = (error, response, body) => {
+            if (!error && response.statusCode === 200) {
+                let parser = new DOMParser();
+                let xmlResponse = parser.parseFromString(body, "text/xml");
+                let resultResponse = xmlResponse.getElementsByTagName("return")[0].outerHTML;
+
+                let xmlOptions = {
+                    explicitArray: false
+                };
+
+                xml2js.parseString(resultResponse, xmlOptions, (err, res) => {
+                    let json = JSON.stringify(res);
+                    let result = JSON.parse(json)["return"];
+
+                    if (result["status"] === "200") {
+                        this.setState({ balance: result["balance"] })
+                    } else {
+                        this.setState({ balance: -1 })
+                    }
+                });
+            };
+        };
+
+        request(options, callback);
+    }
+
+    showReview() {
+        document.getElementById('review-list').style.display = 'block';
+        document.getElementById('btn-confirm').style.display = 'block';
+    }
+
+    isEqual(a1, a2) {
+        var result = []
+        a1.forEach(i1 => {
+            a2.forEach(i2 => {
+                if(i1.id === i2.id_bahan) {
+                    let o = {'id': i1.id, 'suppName': i2.nama_bahan, 'amount': i1.amount}
+                    result.push(o);
+                }
+            })
+        });
+        this.setState({reviewList: result});
+        console.log(this.state.reviewList);
     }
 
     render() {
@@ -55,22 +186,31 @@ class BuySupply extends Component {
                 <h1>Buy Supplies</h1>
                 {this.state.inputList.map((item, i) => {
                     return(
-                        <div className="form-buy" onChange={e => this.handleChange(e,i)}>
-                            <select name= "id" value={item.value}>
+                        <div className="form-buy">
+                            <select name= "id" value={item.value} onChange={e => this.handleSelectChange(e,i)}>
                                 {this.state.supplies.map(supp => {return (
                                     <option value={supp.id_bahan}>
                                         {supp.nama_bahan}
                                     </option>
                                 );})}
                             </select>
-                            <input type="text" className="amount-supp" name="amount" placeholder="Quantity"/>
+                            <input type="text" className="amount-supp" name="amount" placeholder="Quantity" onChange={e => this.handleAmountChange(e,i)}/>
                             <button className="btn-add" onClick={(e) => this.handleAddClick(e)}>Add</button>
                         </div>
                     )
                 })}
-                <Link to={'/home'} className="btn-buy" onClick={this.handleBuyClick()}>
+                <button className="btn-buy" onClick={(e) => this.handleBuyClick(e)}>
                     Buy All
-                </Link>
+                </button>
+                {this.state.reviewList.map(item => { return(
+                    <ul id='review-list'>
+                        <li>{item.suppName} {item.amount}</li>
+                    </ul>
+                )
+                })}
+                <button id="btn-confirm" onClick={(e) => this.handleConfirmClick(e)}>
+                    Confirm Buy
+                </button>
             </form>
         )
     }
