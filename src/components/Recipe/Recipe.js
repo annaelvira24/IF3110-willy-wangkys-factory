@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
-import { Link } from 'react-router-dom';
+import MakeChocolateForm from './MakeChocolateForm';
 import './Recipe.css';
 
 class Recipe extends Component {
@@ -111,6 +111,12 @@ class Recipe extends Component {
                         <div className="recipe-content">
                         </div>
                     </div>
+
+                    <MakeChocolateForm/>
+
+                </div>
+
+                <div>
                 </div>
             </React.Fragment>
         );
