@@ -14,7 +14,7 @@ class Order extends Component {
         this.state.cookie = cookie.get("userFactory");
     }
 
-    handleApprove = orderId => {
+    handleApprove(orderId) {
         let request = require('request');
         let xml2js = require('xml2js');
 
@@ -23,7 +23,7 @@ class Order extends Component {
     	    	<soapenv:Header/>
     			<soapenv:Body>
     				<ser:GiveApproval>
-    				    <idAddStock>` + orderId + `</idAddStock>
+    				    <addStockId>` + orderId + `</addStockId>
     				</ser:GiveApproval>
     			</soapenv:Body>
     		</soapenv:Envelope>`;
@@ -48,6 +48,7 @@ class Order extends Component {
                 };
 
                 xml2js.parseString(resultResponse, xmlOptions, (err, res) => {
+                    console.log(err);
                     let json = JSON.stringify(res);
                     let result = JSON.parse(json)["return"];
                     console.log("result : ", result);
@@ -56,6 +57,7 @@ class Order extends Component {
         };
 
         request(options, callback);
+        window.location.reload();
     }
 
     componentDidMount() {
@@ -122,23 +124,22 @@ class Order extends Component {
         amount.innerHTML = e["amount"][i];
 
         let status = document.createElement('div');
-        if (e["orderStatus"][i] == "Pending"){
-            let approvalButton = document.createElement('button');
-            approvalButton.onClick = e => this.handleApprove(e["orderId"][i]);
-        }
         status.className = 'text-content-' + e["orderStatus"][i];
         status.innerHTML = e["orderStatus"][i];
 
         let approval = document.createElement('div');
-        let approvalButton = document.createElement('a');
-        // approvalButton.href = "/recipe/" + e["productId"][i];
-        approvalButton.innerText = "Give Approval";
-        approval.appendChild(approvalButton)
+        if (e["orderStatus"][i] === "Pending"){
+            let approvalButton = document.createElement('button');
+            approvalButton.innerText = "Give Approval";
+            approvalButton.onclick = () => this.handleApprove(e["orderId"][i]);
+            approval.appendChild(approvalButton);
+        }        
 
         orderContentItem.appendChild(addStockId);
         orderContentItem.appendChild(productName);
         orderContentItem.appendChild(amount);
         orderContentItem.appendChild(status);
+        orderContentItem.appendChild(approval);
 
         return orderContentItem;
     }
@@ -164,6 +165,9 @@ class Order extends Component {
                             </div>
                             <div className="text-header">
                                 Status
+                            </div>
+                            <div className="text-header">
+                                Action
                             </div>
                         </div>
 

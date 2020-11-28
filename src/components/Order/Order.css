@@ -33,7 +33,7 @@ label {
     display: grid;
     font-size: 1.2rem;
     font-weight: bold;
-    grid-template-columns: 10% 40% 20% 30%;
+    grid-template-columns: 10% 30% 20% 20% 20%;
     padding: 10px 0px 10px 0px;
 }
 
@@ -52,7 +52,7 @@ label {
     display: grid;
     font-size: 0.9rem;
     font-weight: bold;
-    grid-template-columns: 10% 40% 20% 30%;
+    grid-template-columns: 10% 30% 20% 20% 20%;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -63,4 +63,10 @@ label {
 
 .text-content-Delivered {
     color: seagreen;
+}
+
+button {
+    background-color: orange;
+    color: white;
+    padding: 5px 10px 5px 10px;
 }
