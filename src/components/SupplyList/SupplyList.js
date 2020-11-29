@@ -46,9 +46,9 @@ class SupplyList extends Component {
                         <div className="supply-content">
                             {this.state.supplies.map((item, i) => {return (
                                 <div className="supply-content-item">
-                                    <h1>{item.id_bahan}</h1>
-                                    <h1>{item.nama_bahan}</h1>
-                                    <h1>{item.harga_satuan}</h1>
+                                    <p>{item.id_bahan}</p>
+                                    <p>{item.nama_bahan}</p>
+                                    <p>{item.harga_satuan}</p>
                                 </div>
                             );
                             })}
