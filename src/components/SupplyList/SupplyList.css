@@ -53,6 +53,11 @@ label {
     font-size: 0.9rem;
     font-weight: bold;
     grid-template-columns: 15% 50% 35%;
-    padding-top: 10px;
-    padding-bottom: 10px;
+}
+
+p {
+    color: dimgrey;
+    font-size: 0.9rem;
+    font-weight: bold;
+    grid-template-columns: 15% 50% 35%;
 }
