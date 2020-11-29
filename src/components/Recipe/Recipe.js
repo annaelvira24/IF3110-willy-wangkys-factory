@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
-import MakeChocolateForm from './MakeChocolateForm';
 import './Recipe.css';
 
 class Recipe extends Component {
@@ -12,6 +11,59 @@ class Recipe extends Component {
         super();
         const cookie = new Cookies();
         this.state.cookie = cookie.get("userFactory");
+    }
+
+    handleProduce (productId) {
+        let request = require('request');
+        let xml2js = require('xml2js');
+
+        let amount = document.getElementById('amount-input').value;
+
+
+        let xml =
+            `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://services/">
+				<soapenv:Header/>
+				<soapenv:Body>
+					<ser:Produce>
+						<productId>` + productId + `</productId>
+                        <amount>` + amount + `</amount>
+					</ser:Produce>
+				</soapenv:Body>
+			</soapenv:Envelope>`;
+
+        let options = {
+            url: 'http://localhost:8080/web_service_factory/services/Produce?wsdl',
+            method: 'POST',
+            body: xml,
+            headers: {
+                'Content-Type': 'text/xml;charset=utf-8',
+            }
+        };
+
+        let callback = (error, response, body) => {
+            if (!error && response.statusCode === 200) {
+                let parser = new DOMParser();
+                let xmlResponse = parser.parseFromString(body, "text/xml");
+                let resultResponse = xmlResponse.getElementsByTagName("return")[0].outerHTML;
+
+                let xmlOptions = {
+                    explicitArray: false
+                };
+
+                xml2js.parseString(resultResponse, xmlOptions, (err, res) => {
+                    let json = JSON.stringify(res);
+                    let result = JSON.parse(json)["return"];
+
+                    if (result === "300") {
+                        document.getElementById('amount-input').style.borderColor = 'red';
+                        document.getElementById('amount-input').style.borderWidth = '1.5px';
+                    }
+                });
+            };
+        };
+
+        request(options, callback);
+
     }
 
     componentDidMount() {
@@ -89,6 +141,9 @@ class Recipe extends Component {
     }
 
     render() {
+        let segment_str = this.props.location.pathname;
+        let segment_array = segment_str.split( '/' );
+        let id = segment_array.pop();
         return (
             <React.Fragment>
 
@@ -112,11 +167,12 @@ class Recipe extends Component {
                         </div>
                     </div>
 
-                    <MakeChocolateForm/>
-
                 </div>
 
-                <div>
+                <div class = "container-produce">
+                        <input class = "input-message" id="amount-input" type="number" name="amount" placeholder="amount"/>
+                        <button className="produce-button" onClick={() => this.handleProduce(id)}>Produce Chocolate</button>
+
                 </div>
             </React.Fragment>
         );
