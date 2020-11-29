@@ -32,6 +32,7 @@ select {
     padding: 5px 50px;
     border: 2px solid orange;
     background-color: white;
+    color: black !important;
 }
 
 .btn-add:hover {
