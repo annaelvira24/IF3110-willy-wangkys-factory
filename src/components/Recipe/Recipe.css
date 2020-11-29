@@ -56,3 +56,37 @@ label {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+input[type=number]{
+    width: 20%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 15px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 5px;
+    opacity: 0.8;
+    font-size: 13px;
+}
+
+.produce-button {
+    background-color: darkorange;
+    color: white;
+    padding: 14px 20px;
+    cursor: pointer;
+    width: 30%;
+    font-size: 14px;
+}
+
+.login-form {
+    width: 30%;
+}
+
+.container-produce {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    height: 50px;
+}
