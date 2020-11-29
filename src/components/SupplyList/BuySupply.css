@@ -52,10 +52,28 @@ select {
     color: white;
 }
 
+#review-header {
+    margin: 150px 10px 30px 10px;
+    text-align: center;
+    display: none;
+}
+
 #review-list {
     display: none;
+    list-style-type: decimal;
+}
+
+ul {
+    text-align: center;
 }
 
 #btn-confirm {
     display: none;
+    position: absolute;
+    right: 0;
+    margin: 10px 90px;
+    padding: 10px 50px;
+    border-radius: 10px;
+    background-color: darkorange;
+    color: white;
 }

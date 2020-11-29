@@ -72,6 +72,7 @@ class BuySupply extends Component {
             const received = res.data;
             this.setState({status: received.status, money: received.money});
             if(res.data.status === 'success') {
+                console.log("INPUT LIST BUY", this.state.inputList)
                 this.isEqual(this.state.inputList, this.state.supplies);
                 this.showReview();
             }
@@ -82,36 +83,74 @@ class BuySupply extends Component {
     handleConfirmClick = async e => {
         e.preventDefault();
         let request = require('request');
-        let xml2js = require('xml2js');
 
         let items = this.state.inputList;
         let money = this.state.money;
+        console.log("money", this.state.money);
 
-        let xml = 
-            `<soapenv: Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://services/">
-                <soapenv:Header/>
-                <soapenv:Body>
-                    <ser:AddSupply>
-                        <items>` + items + `</items>
+        let xml =
+            `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://services/">
+				<soapenv:Header/>
+				<soapenv:Body>
+					<ser:ReduceBalance>
                         <money>` + money + `</money>
-                    <ser:AddSupply>
-                </soapenv:Body>
-            </soapenv:Envelope>`;
+					</ser:ReduceBalance>
+				</soapenv:Body>
+			</soapenv:Envelope>`;
 
         let options = {
-            url: 'http://localhost:8080/web_service_factory/services/AddSupply?wsdl',
-            method: 'POST',
-            body: xml,
-            headers: {
-                'Content-Type': 'text/xml;charset=utf-8',
-            }
+                url: 'http://localhost:8080/web_service_factory/services/ReduceBalance?wsdl',
+                method: 'POST',
+                body: xml,
+                headers: {
+                    'Content-Type': 'text/xml;charset=utf-8',
+                }
         };
 
         let callback = (error, response, body) => {
-            console.log(error);
+                console.log("error", error);
+                console.log("response", response);
+                let json = JSON.stringify(response);
+                let result = JSON.parse(json)["return"];
+                console.log("result : ", result);
         };
 
         request(options, callback);
+
+        for(let i = 0; i < items.length; i++) {
+            console.log("ITEMS", items[i].id);
+            console.log("ITEMS", items[i].amount);
+            let xml =
+            `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://services/">
+				<soapenv:Header/>
+				<soapenv:Body>
+					<ser:AddSupply>
+                        <id>` + items[i].id + `</id>
+                        <amount>` + items[i].amount + `</amount>
+					</ser:AddSupply>
+				</soapenv:Body>
+			</soapenv:Envelope>`;
+
+            let options = {
+                url: 'http://localhost:8080/web_service_factory/services/AddSupply?wsdl',
+                method: 'POST',
+                body: xml,
+                headers: {
+                    'Content-Type': 'text/xml;charset=utf-8',
+                }
+            };
+
+            let callback = (error, response, body) => {
+                console.log("error", error);
+                console.log("response", response);
+                let json = JSON.stringify(response);
+                let result = JSON.parse(json)["return"];
+                console.log("result : ", result);
+            };
+
+            request(options, callback);
+        }
+
     }
 
     getBalance() {
@@ -162,6 +201,7 @@ class BuySupply extends Component {
     }
 
     showReview() {
+        document.getElementById('review-header').style.display = 'block';
         document.getElementById('review-list').style.display = 'block';
         document.getElementById('btn-confirm').style.display = 'block';
     }
@@ -202,12 +242,15 @@ class BuySupply extends Component {
                 <button className="btn-buy" onClick={(e) => this.handleBuyClick(e)}>
                     Buy All
                 </button>
-                {this.state.reviewList.map(item => { return(
-                    <ul id='review-list'>
-                        <li>{item.suppName} {item.amount}</li>
-                    </ul>
-                )
-                })}
+
+                <h1 id='review-header'>Review List</h1>
+                <ul id='review-list'>
+                    {this.state.reviewList.map(item => { return(
+                        <li>{item.suppName} ({item.amount})</li>
+                    )
+                    })}
+                </ul>
+
                 <button id="btn-confirm" onClick={(e) => this.handleConfirmClick(e)}>
                     Confirm Buy
                 </button>
