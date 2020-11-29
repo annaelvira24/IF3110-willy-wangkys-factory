@@ -25,6 +25,8 @@ Operasi yang disediakan:
 ![](screenshot/inventory.png)
 ### Halaman Product
 ![](screenshot/product.png)
+### Resep Product
+![](screenshot/recipe.png)
 ### Halaman Buy Supply
 ![](screenshot/supply_list_1.png)
 ![](screenshot/supply_list_2.png)
