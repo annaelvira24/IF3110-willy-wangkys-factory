@@ -19,4 +19,9 @@ Operasi yang disediakan:
 ![](screenshot/login.png)
 ### Halaman Home
 ![](screenshot/home.png)
-### 
+### Halaman Order
+![](screenshot/order.png)
+### Halaman Inventory
+![](screenshot/inventory.png)
+### Halaman Product
+![](screenshot/product.png)
