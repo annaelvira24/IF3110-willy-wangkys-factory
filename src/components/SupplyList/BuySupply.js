@@ -35,12 +35,9 @@ class BuySupply extends Component {
 
     handleSelectChange(e,i) {
         var v = e.target.value;
-        console.log(v);
         const newInputList = [...this.state.inputList];
         newInputList[i].id = parseInt(v);
         this.setState({newInputList});
-        console.log("select change");
-        console.log(this.state.inputList);
     };
 
     handleAmountChange(e,i) {
@@ -48,8 +45,6 @@ class BuySupply extends Component {
         const newInputList = [...this.state.inputList];
         newInputList[i].amount = parseInt(v);
         this.setState({newInputList});
-        console.log("amount change")
-        console.log(this.state.inputList);
     }
 
     handleAddClick(e) {
@@ -62,7 +57,6 @@ class BuySupply extends Component {
 
     handleBuyClick(e) {
         e.preventDefault();
-        console.log(this.state.balance);
         const BuySupp = {
             "balance": this.state.balance,
             "items": this.state.inputList
@@ -90,7 +84,6 @@ class BuySupply extends Component {
 
         let items = this.state.inputList;
         let money = this.state.money;
-        console.log("money", this.state.money);
 
         let xml =
             `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://services/">
@@ -113,17 +106,11 @@ class BuySupply extends Component {
 
         let callback = (error, response, body) => {
                 console.log("error", error);
-                console.log("response", response);
-                let json = JSON.stringify(response);
-                let result = JSON.parse(json)["return"];
-                console.log("result : ", result);
         };
 
         request(options, callback);
 
         for(let i = 0; i < items.length; i++) {
-            console.log("ITEMS", items[i].id);
-            console.log("ITEMS", items[i].amount);
             let xml =
             `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://services/">
 				<soapenv:Header/>
@@ -146,10 +133,6 @@ class BuySupply extends Component {
 
             let callback = (error, response, body) => {
                 console.log("error", error);
-                console.log("response", response);
-                let json = JSON.stringify(response);
-                let result = JSON.parse(json)["return"];
-                console.log("result : ", result);
             };
 
             request(options, callback);
@@ -230,7 +213,6 @@ class BuySupply extends Component {
             })
         });
         this.setState({reviewList: result});
-        console.log(this.state.reviewList);
     }
 
     render() {
