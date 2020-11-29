@@ -53,8 +53,27 @@ select {
     color: white;
 }
 
+#status-success {
+    display: none;
+}
+
+#status-failed {
+    display: none;
+}
+
+.status {
+    text-align: center;
+    font-size: 12px;
+    margin: 100px 0px 20px 0px;
+}
+
+.status h2 {
+    font-weight: normal;
+    margin: 5px;
+}
+
 #review-header {
-    margin: 150px 10px 30px 10px;
+    margin: 50px 10px 30px 10px;
     text-align: center;
     display: none;
 }

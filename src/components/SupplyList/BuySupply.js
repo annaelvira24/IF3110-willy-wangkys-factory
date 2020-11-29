@@ -19,6 +19,7 @@ class BuySupply extends Component {
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleAmountChange = this.handleAmountChange.bind(this);
         this.showReview = this.showReview.bind(this);
+        this.showStatus = this.showStatus.bind(this);
         this.isEqual = this.isEqual.bind(this);
         this.getBalance = this.getBalance.bind(this);
     }
@@ -72,9 +73,12 @@ class BuySupply extends Component {
             const received = res.data;
             this.setState({status: received.status, money: received.money});
             if(res.data.status === 'success') {
-                console.log("INPUT LIST BUY", this.state.inputList)
+                this.showStatus();
                 this.isEqual(this.state.inputList, this.state.supplies);
                 this.showReview();
+            }
+            else {
+                this.showStatus();
             }
         })
         .catch(error => {console.log(error)});
@@ -200,6 +204,15 @@ class BuySupply extends Component {
         request(options, callback);
     }
 
+    showStatus() {
+        if(this.state.status == 'success') {
+            document.getElementById('status-success').style.display = 'block';
+        }
+        else {
+            document.getElementById('status-failed').style.display = 'block';
+        }
+    }
+
     showReview() {
         document.getElementById('review-header').style.display = 'block';
         document.getElementById('review-list').style.display = 'block';
@@ -243,6 +256,17 @@ class BuySupply extends Component {
                     Buy All
                 </button>
 
+                <div id="status-success" className="status">
+                    <h2>Balance is enough.</h2>
+                    <h2>Remaining balance: {this.state.money}</h2>
+                    <h2>Review your order list and proceed by clicking 'Confirm Buy'</h2>
+                </div>
+
+                <div id="status-failed" className="status">
+                    <h2>Balance is not enough.</h2>
+                    <h2>Needed: {this.state.money}</h2>
+                </div>
+
                 <h1 id='review-header'>Review List</h1>
                 <ul id='review-list'>
                     {this.state.reviewList.map(item => { return(
@@ -254,6 +278,7 @@ class BuySupply extends Component {
                 <button id="btn-confirm" onClick={(e) => this.handleConfirmClick(e)}>
                     Confirm Buy
                 </button>
+
             </form>
         )
     }
